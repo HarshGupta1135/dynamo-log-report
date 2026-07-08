@@ -1,20 +1,28 @@
-artifacts = "/app/out.json"
+schema_version = "1.1"
+artifacts = ["/app/report.json"]
 
 [task]
 name = "dynamo/log-report"
 description = "Parse an Apache-style access log into a small JSON summary report."
+keywords = ["log-analysis", "text-processing", "data-processing", "etl"]
+[[task.authors]]
+name = "Dynamo"
+email = "akash@futurepath.ai"
 
 [metadata]
+author_name = "Dynamo"
+author_email = "akash@futurepath.ai"
 category = "data_processing_and_etl"
 subcategory = "text_processing"
+difficulty = "easy"
 task_objective = ["transform", "generate"]
 artifact_type = ["text_or_log_file", "generated_output_artifact"]
-expert_time_estimate_hours = 0.3
+expert_time_estimate_min = 18.0
 model_tested = "GPT-5.4"
 agent_tested = "Terminus-2"
 difficulty_explanation = "Parse a small access log and emit summary stats."
-solution_explanation = "Read the log, count requests/unique IPs, find the top path."
-verification_explanation = "Check the report file."
+solution_explanation = "Read the log, count requests and unique client IPs, and find the most requested path."
+verification_explanation = "Parse the produced /app/report.json and check total_requests, unique_ips, and top_path against the known-correct values for the fixed access.log."
 
 [verifier]
 timeout_sec = 120.0
@@ -30,3 +38,9 @@ storage_mb = 10240
 gpus = 0
 allow_internet = true
 mcp_servers = []
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]
