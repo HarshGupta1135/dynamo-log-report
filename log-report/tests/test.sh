@@ -1,10 +1,12 @@
 #!/bin/bash
+# pytest and pytest-json-ctrf are baked into the environment image
+# (environment/Dockerfile), so the verifier runs plain pytest with no
+# network access or verify-time installs.
 
-# pytest is baked into the environment image (environment/Dockerfile).
-pytest /tests/test_outputs.py -rA
+pytest --ctrf /logs/verifier/ctrf.json /tests/test_outputs.py -rA
 
 if [ $? -eq 0 ]; then
-  echo 1 > /app/reward.txt
+  echo 1 > /logs/verifier/reward.txt
 else
-  echo 0 > /app/reward.txt
+  echo 0 > /logs/verifier/reward.txt
 fi
